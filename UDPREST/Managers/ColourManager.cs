@@ -15,8 +15,13 @@ namespace UDPREST.Managers
         {
             return new List<SensorData>(_data);
         }
+        public IEnumerable<string> GetAllUniqueColours()
+        {
+            //Using LinQ to find the unique names in the list
+            return _data.Select(s => s.SensorName).Distinct();
+        }
 
-        public int Add(SensorData newData)
+        public int add(SensorData newData)
         {
             newData.Id = _nextId++;
             _data.Add(newData);

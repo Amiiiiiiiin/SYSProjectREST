@@ -23,10 +23,22 @@ namespace UDPREST.Controllers
             {
                 return Ok(result);
             }
-            else
+
+            return NoContent();
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("Colour")]
+        public ActionResult<IEnumerable<string>> GetUniqueColours()
+        {
+            IEnumerable<string> result = _manager.GetAllUniqueColours();
+            if (result.Count() > 0)
             {
-                return NoContent();
+                return Ok(result);
             }
+
+            return NoContent();
         }
     }
 }

@@ -14,20 +14,22 @@ namespace UDPREST.Controllers
     public class ColourController : ControllerBase
     {
         private ColourManager _manager = new ColourManager();
-
-        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet]   
         public ActionResult<IEnumerable<SensorData>> Get()
         {
             IEnumerable<SensorData> result = _manager.GetAll();
             if (result.Count() > 0)
             {
                 return Ok(result);
+               
             }
-
-
+            //test
 
             return NoContent();
         }
+
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -42,5 +44,25 @@ namespace UDPREST.Controllers
 
             return NoContent();
         }
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [HttpPost]
+        //public SensorData Post(SensorData value)
+        //{
+        //    return _manager.AddsesSensorData(value);
+        //}
+
+
+        //public SensorData AddSensorData(SensorData newSensorData)
+        //{
+        //    newSensorData.Id = _nextId++;
+        //}
+
+        public ActionResult<SensorData> Post([FromBody] SensorData newSensorData)
+        {
+            SensorData result = _manager.AddSensorData(newSensorData);
+            return Created($"/api/Colour/{result.Id}", result);
+        }
+
     }
 }

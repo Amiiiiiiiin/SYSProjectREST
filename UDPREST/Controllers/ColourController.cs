@@ -25,11 +25,9 @@ namespace UDPREST.Controllers
                 return Ok(result);
                
             }
-            //test
 
             return NoContent();
         }
-
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -43,6 +41,7 @@ namespace UDPREST.Controllers
             }
 
             return NoContent();
+
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]

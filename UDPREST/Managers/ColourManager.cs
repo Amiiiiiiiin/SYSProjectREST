@@ -15,11 +15,11 @@ namespace UDPREST.Managers
         private static readonly List<SensorData> _data = new List<SensorData>()
         {
 
-            new SensorData { Id = _nextId++, Colour = "Blue", SensorName = "" },
-            new SensorData { Id = _nextId++, Colour = "Red", SensorName = "" },
-            new SensorData { Id = _nextId++, Colour = "Yellow", SensorName = "" },
-            new SensorData { Id = _nextId++, Colour = "Green", SensorName = "" },
-            new SensorData { Id = _nextId++, Colour = "Magenta", SensorName = "" }
+            new SensorData { Id = _nextId++, Colour = "Blue", SensorName = "op" },
+            new SensorData { Id = _nextId++, Colour = "Red", SensorName = "ned" },
+            new SensorData { Id = _nextId++, Colour = "Yellow", SensorName = "højre" },
+            new SensorData { Id = _nextId++, Colour = "Green", SensorName = "venstre" },
+            new SensorData { Id = _nextId++, Colour = "Magenta", SensorName = "midt" }
         };
 
 

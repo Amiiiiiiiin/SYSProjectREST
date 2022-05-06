@@ -4,9 +4,41 @@ namespace UDPLibrary
 {
     public class SensorData
     {
-        public int Id { get; set; }
-        public String SensorName { get; set; }
-        public string Colour { get; set; }
+        private int _id;
+        private string _sensorName;
+        private string _colour;
+
+        public int Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+
+        public String SensorName
+        {
+            get => _sensorName;
+            set => _sensorName = value;
+        }
+
+        public string Colour
+        {
+            get => _colour;
+            set
+            {
+                if (value.ToLower() == "red" || value.ToLower() == "blue" || value.ToLower() == "magenta" ||
+                    value.ToLower() == "yellow" || value.ToLower() == "green")
+                {
+                    {
+                        _colour = value;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+
+            }
+        }
 
         public SensorData()
         {
@@ -19,5 +51,12 @@ namespace UDPLibrary
             SensorName = sensorName;
             Colour = colour;
         }
+
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
+

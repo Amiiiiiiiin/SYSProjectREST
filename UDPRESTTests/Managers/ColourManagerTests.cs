@@ -18,9 +18,16 @@ namespace UDPREST.Managers.Tests
         {
             SensorData sensorData = new SensorData(1, "op", "blue");
             Assert.AreEqual("blue", sensorData.Colour);
-            sensorData.Colour = null; 
-            Assert.AreEqual(null, sensorData.Colour);
-            Assert.ThrowsException<ArgumentNullException>(() => sensorData.Colour = null);
+            sensorData.Colour = "red";
+            Assert.AreEqual("red", sensorData.Colour);
+            sensorData.Colour = "green";
+            Assert.AreEqual("green", sensorData.Colour);
+            sensorData.Colour = "yellow";
+            Assert.AreEqual("yellow", sensorData.Colour);
+            sensorData.Colour = "magenta";
+            Assert.AreEqual("magenta", sensorData.Colour);
+            //Assert.AreEqual("Azure", sensorData.Colour);
+            Assert.ThrowsException<ArgumentException>(() => sensorData.Colour = "Azure");
 
 
         }

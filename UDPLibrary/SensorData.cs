@@ -55,7 +55,8 @@ namespace UDPLibrary
 
         public override string ToString()
         {
-            return base.ToString();
+            //Simple string containing the property names and thier respective values
+            return $"Id: {Id} - SensorName: {SensorName} - Colour: {Colour}";
         }
     }
 }

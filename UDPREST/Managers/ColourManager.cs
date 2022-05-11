@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using UDPLibrary;
 
@@ -22,18 +23,34 @@ namespace UDPREST.Managers
             new SensorData { Id = _nextId++, Colour = "Magenta", SensorName = "midt" }
         };
 
-
-
-
-        public List<SensorData> GetAll()
+        public List<SensorData> GetAll(int id, string colour, string sensorName) //string substring = null
         {
-            return new List<SensorData>(_data);
+            List<SensorData> result = new List<SensorData>(_data);
+            if (id != 0)
+            {
+                result = result.FindAll(filterId => filterId.Id == id);
+            }
+
+            if (colour != null)
+            {
+                result = result.FindAll(filterColour => filterColour.Colour.Contains(colour, StringComparison.OrdinalIgnoreCase));
+
+            }
+
+            if (sensorName != null)
+            {
+                result = result.FindAll(filterSensorName => filterSensorName.SensorName.Contains(sensorName, StringComparison.OrdinalIgnoreCase));
+            }
+            return result;
         }
-        public IEnumerable<string> GetAllUniqueColours()
-        {
-            //Using LinQ to find the unique names in the list
-            return _data.Select(s => s.SensorName).Distinct();
-        }
+
+        //public List<SensorData> GetAll(string colour, string sensorName)
+        //{
+        //    List<SensorData> result = new List<SensorData>(_data);
+        //    result = result.FindAll();
+        //    return result;
+        //}
+
 
         public SensorData AddSensorData(SensorData newData)
         {
@@ -42,11 +59,40 @@ namespace UDPREST.Managers
             return newData;
         }
 
-        public SensorData GetAll(int id)
+        public List<SensorData> GetAll()
+        {
+            return new List<SensorData>(_data);
+        }
+        public IEnumerable<string> GetAllUniqueColours()
+        {
+            //Using LinQ to find the unique names in the list
+            return _data.Select(s => s.Colour).Distinct();
+        }
+        public SensorData GetById(int id)
         {
             return _data.Find(SensorData => SensorData.Id == id);
         }
 
+        public SensorData GetAll(int id)
+        {
+            return _data.Find(SensorData => SensorData.Id == id);
+        }
+        public SensorData Delete(int id)
+        {
+            SensorData sensorData = _data.Find(sensorData => sensorData.Id == id);
+            if (sensorData == null) return null;
+            _data.Remove(sensorData);
+            return sensorData;
+        }
+
+        public SensorData UpdateSensorData(int id, SensorData updates)
+        {
+            SensorData sensorData = _data.Find(SensorData => SensorData.Id == id);
+            if (sensorData == null) return null;
+            sensorData.Colour = updates.Colour;
+            sensorData.SensorName = updates.SensorName;
+            return sensorData;
+        }
         //public SensorData AddSensorData(SensorData newSensorData)
         //{
         //    newSensorData.Id = _nextId;

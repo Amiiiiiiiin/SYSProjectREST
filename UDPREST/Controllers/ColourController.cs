@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using UDPLibrary;
 using UDPREST.Managers;
 
@@ -43,25 +44,45 @@ namespace UDPREST.Controllers
             return NoContent();
 
         }
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet ("{id}")]
+        public ActionResult<SensorData> Get(int id)
+        {
+            SensorData result = _manager.GetById(id);
+            if (result == null) return NotFound("No such item, id: " + id);
+            return Ok(result);
+        }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
-        //public SensorData Post(SensorData value)
-        //{
-        //    return _manager.AddsesSensorData(value);
-        //}
-
-
-        //public SensorData AddSensorData(SensorData newSensorData)
-        //{
-        //    newSensorData.Id = _nextId++;
-        //}
-
+        
         public ActionResult<SensorData> Post([FromBody] SensorData newSensorData)
         {
             SensorData result = _manager.AddSensorData(newSensorData);
             return Created($"/api/Colour/{result.Id}", result);
         }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPut("{id}")]
+        public ActionResult<SensorData> Put(int id, [FromBody] SensorData updatedsensorData)
+        {
+            SensorData result = _manager.UpdateSensorData(id, updatedsensorData);
+            if (result == null) return NotFound("No such item, id: " + id);
+            return Ok(result);
+        }
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[EnableCors(Startup.AllowOnlyZealandOriginPolicyName)]
+        [HttpDelete("{id}")]
+        public ActionResult<SensorData> Delete(int id)
+        {
+            SensorData result = _manager.Delete(id);
+            if (result == null) return NotFound("No such item, id: " + id);
+            return Ok(result);
+        }
+
 
     }
 }

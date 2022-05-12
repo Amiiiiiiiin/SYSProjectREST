@@ -55,13 +55,22 @@ namespace UDPREST.Controllers
         // PUT api/<ColourController>/5
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPut("{id}")]
-        public ActionResult<GenreColour> Put(int id, [FromBody] GenreColour updatedGenreColour)
+        [HttpPut]
+        public ActionResult<GenreColour> Put([FromBody] string updatedGenreColour)
         {
-            GenreColour result = _manager.Update(id, updatedGenreColour);
-            if (result == null) return NotFound("No such item, id: " + id);
+            GenreColour result = _manager.Update(updatedGenreColour);
+            if (result == null) return NotFound("No such item, id:");
             return Ok(result);
         }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpPut("update")]
+        public ActionResult<string> PutActiveGenre([FromBody] int id)
+        {
+            string currentlySetGenre = _manager.SetActualGenre(id);
+            return Ok(currentlySetGenre);
+        }
+        //putactivegenre før put
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

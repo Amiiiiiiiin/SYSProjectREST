@@ -9,6 +9,7 @@ namespace UDPREST.Managers
 {
     public class ColourManager
     {
+        private static int actualGenre;
         private static int _nextId = 1;
         private static readonly List<GenreColour> genreColours = new List<GenreColour>()
         {
@@ -18,6 +19,12 @@ namespace UDPREST.Managers
             new GenreColour { Id = _nextId++, Genre = "alternative", Colour = ""},
             new GenreColour { Id = _nextId++, Genre = "ambient", Colour = ""},
         };
+
+        public string SetActualGenre(int id)
+        {
+            actualGenre = id;
+            return "Currently updating genre number: " + id;
+        }
 
         public List<GenreColour> GetAll(int id, string genre, string colour)
         {
@@ -48,11 +55,11 @@ namespace UDPREST.Managers
             return genreColour;
         }
 
-        public GenreColour Update(int id, GenreColour updates)
+        public GenreColour Update(string colour)
         {
-            GenreColour genreColour = genreColours.Find(GenreColour => GenreColour.Id == id);
+            GenreColour genreColour = genreColours.Find(g => g.Id == actualGenre);
             if (genreColour == null) return null;
-            genreColour.Colour = updates.Colour;
+            genreColour.Colour = colour;
             return genreColour;
         }
     }

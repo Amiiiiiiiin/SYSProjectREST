@@ -22,7 +22,7 @@ namespace UDPREST.Managers
         public List<GenreColour> GetAll(int id, string genre, string colour)
         {
             List<GenreColour> result = genreColours;
-            if (id != null) result = result.FindAll(g => g.Id <= id);
+            if (id != 0) result = result.FindAll(g => g.Id <= id);
             if (!string.IsNullOrWhiteSpace(genre)) result = result.FindAll(g => g.Genre.Contains(genre, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrWhiteSpace(colour)) result = result.FindAll(g => g.Colour.Contains(colour, StringComparison.OrdinalIgnoreCase));
             return result;

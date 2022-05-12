@@ -15,6 +15,8 @@ namespace UDPREST
 {
     public class Startup
     {
+        /// Variable for allow all CORS policy
+        public const string AllowAllPolicy = "allowAll";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -41,6 +43,8 @@ namespace UDPREST
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UDPREST v1"));
 
             app.UseRouting();
+
+            app.UseCors(AllowAllPolicy);
 
             app.UseAuthorization();
 

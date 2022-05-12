@@ -28,8 +28,42 @@ namespace UDPREST.Managers
             return result;
         }
 
+        public GenreColour GetById(int id)
+        {
+            return genreColours.Find(genreColour => genreColour.Id == id);
+        }
 
+        public GenreColour Add(GenreColour newGenreColour)
+        {
+            newGenreColour.Id = _nextId++;
+            genreColours.Add(newGenreColour);
+            return newGenreColour;
+        }
+
+        public GenreColour Delete(int id)
+        {
+            GenreColour genreColour = genreColours.Find(genreColour => genreColour.Id == id);
+            if (genreColour == null) return null;
+            genreColours.Remove(genreColour);
+            return genreColour;
+        }
+
+        public GenreColour Update(int id, GenreColour updates)
+        {
+            GenreColour genreColour = genreColours.Find(GenreColour => GenreColour.Id == id);
+            if (genreColour == null) return null;
+            genreColour.Colour = updates.Colour;
+            return genreColour;
+        }
     }
+    //        public SensorData UpdateSensorData(int id, SensorData updates)
+    //        {
+    //            SensorData sensorData = _data.Find(SensorData => SensorData.Id == id);
+    //            if (sensorData == null) return null;
+    //            sensorData.Colour = updates.Colour;
+    //            sensorData.SensorName = updates.SensorName;
+    //            return sensorData;
+    //        }
 }
 
 //{

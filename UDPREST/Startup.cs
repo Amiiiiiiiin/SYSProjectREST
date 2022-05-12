@@ -44,7 +44,7 @@ namespace UDPREST
 
             app.UseRouting();
 
-            app.UseCors(AllowAllPolicy);
+            //app.UseCors(AllowAllPolicy);
 
             app.UseAuthorization();
 

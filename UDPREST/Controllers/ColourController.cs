@@ -16,7 +16,6 @@ namespace UDPREST.Controllers
     {
         private readonly ColourManager _manager = new ColourManager();
         //GET api/<ColourController>
-        //[EnableCors(Startup.AllowAllPolicy)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]

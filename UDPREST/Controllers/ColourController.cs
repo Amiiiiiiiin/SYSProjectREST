@@ -45,7 +45,7 @@ namespace UDPREST.Controllers
         [HttpPost]
         public ActionResult<GenreColour> Post([FromBody] GenreColour newGenreColour)
         {
-            if (newGenreColour.Id <= 0 || newGenreColour.Genre == null || newGenreColour.Colour == null) return BadRequest(newGenreColour);
+            if (/*newGenreColour.Genre == null ||*/ newGenreColour.Colour == null) return BadRequest(newGenreColour);
 
             GenreColour genreColour = new GenreColour();
             genreColour = _manager.Add(newGenreColour);

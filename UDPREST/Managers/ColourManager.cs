@@ -11,13 +11,14 @@ namespace UDPREST.Managers
     {
         private static int actualGenre;
         private static int _nextId = 1;
+        private static string _standardColour = "green";
         private static readonly List<GenreColour> genreColours = new List<GenreColour>()
         {
-            new GenreColour { Id = _nextId++, Genre = "acoustic", Colour = ""},
-            new GenreColour { Id = _nextId++, Genre = "afrobeat", Colour = ""},
-            new GenreColour { Id = _nextId++, Genre = "alt-rock", Colour = ""},
-            new GenreColour { Id = _nextId++, Genre = "alternative", Colour = ""},
-            new GenreColour { Id = _nextId++, Genre = "ambient", Colour = ""},
+            new GenreColour { Id = _nextId++, Genre = "acoustic", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "afrobeat", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "alt-rock", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "alternative", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "ambient", Colour = _standardColour },
         };
 
         public string SetActualGenre(int id)

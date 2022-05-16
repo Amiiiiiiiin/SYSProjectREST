@@ -44,6 +44,7 @@ namespace UDPREST.Managers
         public GenreColour Add(GenreColour newGenreColour)
         {
             newGenreColour.Id = _nextId++;
+            newGenreColour.Colour = _standardColour;
             genreColours.Add(newGenreColour);
             return newGenreColour;
         }

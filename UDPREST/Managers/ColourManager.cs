@@ -22,19 +22,12 @@ namespace UDPREST.Managers
             new GenreColour { Id = _nextId++, Genre = "ambient", Colour = _standardColour },
         };
 
-        private static readonly Dictionary<string, List<GenreColour>> profiles =
-            new Dictionary<String, List<GenreColour>>();
+        private static readonly Dictionary<string, List<GenreColour>> profiles = new Dictionary<String, List<GenreColour>>();
         
-
         public string SetActualProfile(string profileName)
         {
             actualProfile = profileName;
             return "Currently in profile: " + profileName;
-        }
-
-        public void AddProfile(string profileName)
-        {
-            if (profiles.)
         }
 
         public string SetActualGenre(int id)
@@ -43,151 +36,80 @@ namespace UDPREST.Managers
             return "Currently updating genre number: " + id;
         }
 
-        public List<GenreColour> GetAll(int id, string genre, string colour)
+        public IEnumerable<string> GetAllProfiles()
         {
-            List<GenreColour> result = genreColours;
+            return profiles.Keys;
+        }
+
+        public List<GenreColour> GetAllGenreColours(int id, string genre, string colour)
+        {
+            List<GenreColour> result = profiles[actualProfile];
             if (id != 0) result = result.FindAll(g => g.Id <= id);
             if (!string.IsNullOrWhiteSpace(genre)) result = result.FindAll(g => g.Genre.Contains(genre, StringComparison.OrdinalIgnoreCase));
             if (!string.IsNullOrWhiteSpace(colour)) result = result.FindAll(g => g.Colour.Contains(colour, StringComparison.OrdinalIgnoreCase));
             return result;
         }
 
-        public GenreColour GetById(int id)
+        public GenreColour GetGenreColourById(int id)
         {
-            return genreColours.Find(genreColour => genreColour.Id == id);
+            return profiles[actualProfile].Find(genreColour => genreColour.Id == id);
         }
 
-        public GenreColour Add(GenreColour newGenreColour)
+        public GenreColour UpdateGenreColour(string colour)
         {
-            if (!genreColours.ContainsKey.(newGenreColour))
-            {
-                genreColours.Add(genreColours, new List<GenreColour));
-            }
-
-            newGenreColour.Id = _nextId++;
-            newGenreColour.Colour = _standardColour;
-            genreColours.Add(newGenreColour);
-            return newGenreColour;
-        }
-
-        public GenreColour Delete(int id)
-        {
-            GenreColour genreColour = genreColours.Find(genreColour => genreColour.Id == id);
-            if (genreColour == null) return null;
-            genreColours.Remove(genreColour);
-            return genreColour;
-        }
-
-        public GenreColour Update(string colour)
-        {
-            GenreColour genreColour = genreColours.Find(g => g.Id == actualGenre);
+            GenreColour genreColour = profiles[actualProfile].Find(g => g.Id == actualGenre);
             if (genreColour == null) return null;
             genreColour.Colour = colour;
             return genreColour;
         }
+
+        public void AddProfile(string profileName)
+        {
+            if (profiles.ContainsKey(profileName))
+            {
+                throw new ArgumentException("Profile already exists. Please use a unique name");
+            }
+            profiles.Add(profileName, new List<GenreColour>(genreColoursMaster));
+        }
+
+        //public bool DeleteProfile(string profileName)
+        //{
+        //    if (profiles.ContainsKey(profileName))
+        //    {
+
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        }
     }
-    //        public SensorData UpdateSensorData(int id, SensorData updates)
-    //        {
-    //            SensorData sensorData = _data.Find(SensorData => SensorData.Id == id);
-    //            if (sensorData == null) return null;
-    //            sensorData.Colour = updates.Colour;
-    //            sensorData.SensorName = updates.SensorName;
-    //            return sensorData;
-    //        }
 }
 
+//Metode for at oprette ny entry i en liste, det bruges ikke i denne version af programmet
+//public GenreColour Add(GenreColour newGenreColour)
 //{
-//    public class ColourManager
-//    {
-//        //private static List<SensorData> _data = new List<SensorData>();
+//    newGenreColour.Id = _nextId++;
+//    newGenreColour.Colour = _standardColour;
+//    genreColours.Add(newGenreColour);
+//    return newGenreColour;
+//}
 
-//        private static int _nextId = 1;
+//Metode for at slette genre på en liste, det bruges ikke i denne version af programmet
+//public GenreColour Delete(int id)
+//{
+//    GenreColour genreColour = genreColours.Find(genreColour => genreColour.Id == id);
+//    if (genreColour == null) return null;
+//    genreColours.Remove(genreColour);
+//    return genreColour;
+//}
 
-//        private static readonly List<SensorData> _data = new List<SensorData>()
-//        {
-
-//            new SensorData { Id = _nextId++, Colour = "Blue", SensorName = "op" },
-//            new SensorData { Id = _nextId++, Colour = "Red", SensorName = "ned" },
-//            new SensorData { Id = _nextId++, Colour = "Yellow", SensorName = "højre" },
-//            new SensorData { Id = _nextId++, Colour = "Green", SensorName = "venstre" },
-//            new SensorData { Id = _nextId++, Colour = "Magenta", SensorName = "midt" }
-//        };
-
-//        public List<SensorData> GetAll(int id, string colour, string sensorName) //string substring = null
-//        {
-//            List<SensorData> result = new List<SensorData>(_data);
-//            if (id != 0)
-//            {
-//                result = result.FindAll(filterId => filterId.Id == id);
-//            }
-
-//            if (colour != null)
-//            {
-//                result = result.FindAll(filterColour => filterColour.Colour.Contains(colour, StringComparison.OrdinalIgnoreCase));
-
-//            }
-
-//            if (sensorName != null)
-//            {
-//                result = result.FindAll(filterSensorName => filterSensorName.SensorName.Contains(sensorName, StringComparison.OrdinalIgnoreCase));
-//            }
-//            return result;
-//        }
-
-//        //public List<SensorData> GetAll(string colour, string sensorName)
-//        //{
-//        //    List<SensorData> result = new List<SensorData>(_data);
-//        //    result = result.FindAll();
-//        //    return result;
-//        //}
-
-
-//        public SensorData AddSensorData(SensorData newData)
-//        {
-//            newData.Id = _nextId++;
-//            _data.Add(newData);
-//            return newData;
-//        }
-
-//        public List<SensorData> GetAll()
-//        {
-//            return new List<SensorData>(_data);
-//        }
-//        public IEnumerable<string> GetAllUniqueColours()
-//        {
-//            //Using LinQ to find the unique names in the list
-//            return _data.Select(s => s.Colour).Distinct();
-//        }
-//        public SensorData GetById(int id)
-//        {
-//            return _data.Find(SensorData => SensorData.Id == id);
-//        }
-
-//        public SensorData GetAll(int id)
-//        {
-//            return _data.Find(SensorData => SensorData.Id == id);
-//        }
-//        public SensorData Delete(int id)
-//        {
-//            SensorData sensorData = _data.Find(sensorData => sensorData.Id == id);
-//            if (sensorData == null) return null;
-//            _data.Remove(sensorData);
-//            return sensorData;
-//        }
-
-//        public SensorData UpdateSensorData(int id, SensorData updates)
-//        {
-//            SensorData sensorData = _data.Find(SensorData => SensorData.Id == id);
-//            if (sensorData == null) return null;
-//            sensorData.Colour = updates.Colour;
-//            sensorData.SensorName = updates.SensorName;
-//            return sensorData;
-//        }
-//        //public SensorData AddSensorData(SensorData newSensorData)
-//        //{
-//        //    newSensorData.Id = _nextId;
-//        //    data.Add(newSensorData);
-//        //    return newSensorData;
-//        //}
-//    }
+//public List<GenreColour> GetAllProfiles(int id, string genre, string colour)
+//{
+//    List<GenreColour> result = genreColours;
+//    if (id != 0) result = result.FindAll(g => g.Id <= id);
+//    if (!string.IsNullOrWhiteSpace(genre)) result = result.FindAll(g => g.Genre.Contains(genre, StringComparison.OrdinalIgnoreCase));
+//    if (!string.IsNullOrWhiteSpace(colour)) result = result.FindAll(g => g.Colour.Contains(colour, StringComparison.OrdinalIgnoreCase));
+//    return result;
 //}

@@ -41,18 +41,18 @@ namespace UDPREST.Managers
             return profiles.Keys;
         }
 
-        public List<GenreColour> GetAllGenreColours(int id, string genre, string colour)
+        public List<GenreColour> GetAllGenreColours(string profileName)
         {
-            List<GenreColour> result = profiles[actualProfile];
-            if (id != 0) result = result.FindAll(g => g.Id <= id);
-            if (!string.IsNullOrWhiteSpace(genre)) result = result.FindAll(g => g.Genre.Contains(genre, StringComparison.OrdinalIgnoreCase));
-            if (!string.IsNullOrWhiteSpace(colour)) result = result.FindAll(g => g.Colour.Contains(colour, StringComparison.OrdinalIgnoreCase));
+            List<GenreColour> result = profiles[profileName];
+            //if (id != 0) result = result.FindAll(g => g.Id <= id);
+            //if (!string.IsNullOrWhiteSpace(genre)) result = result.FindAll(g => g.Genre.Contains(genre, StringComparison.OrdinalIgnoreCase));
+            //if (!string.IsNullOrWhiteSpace(colour)) result = result.FindAll(g => g.Colour.Contains(colour, StringComparison.OrdinalIgnoreCase));
             return result;
         }
 
-        public GenreColour GetGenreColourById(int id)
+        public GenreColour GetGenreColourByGenre(string profileName, string genre)
         {
-            return profiles[actualProfile].Find(genreColour => genreColour.Id == id);
+            return profiles[profileName].Find(genreColour => genreColour.Genre.Equals(genre, StringComparison.OrdinalIgnoreCase));
         }
 
         public GenreColour UpdateGenreColour(string colour)
@@ -69,20 +69,26 @@ namespace UDPREST.Managers
             {
                 throw new ArgumentException("Profile already exists. Please use a unique name");
             }
-            profiles.Add(profileName, new List<GenreColour>(genreColoursMaster));
+
+            List<GenreColour> newList = new List<GenreColour>();
+            foreach (GenreColour genreColour in genreColoursMaster)
+            {
+                newList.Add(new GenreColour() { Id = genreColour.Id, Colour = genreColour.Colour, Genre = genreColour.Genre });
+            }
+            profiles.Add(profileName, newList);
         }
 
-        //public bool DeleteProfile(string profileName)
-        //{
-        //    if (profiles.ContainsKey(profileName))
-        //    {
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
+        public bool DeleteProfile(string profileName)
+        {
+            if (profiles.ContainsKey(profileName))
+            {
+                profiles.Remove(profileName);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

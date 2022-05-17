@@ -10,9 +10,10 @@ namespace UDPREST.Managers
     public class ColourManager
     {
         private static int actualGenre;
+        private static string actualProfile;
         private static int _nextId = 1;
         private static string _standardColour = "green";
-        private static readonly List<GenreColour> genreColours = new List<GenreColour>()
+        private static readonly List<GenreColour> genreColoursMaster = new List<GenreColour>()
         {
             new GenreColour { Id = _nextId++, Genre = "acoustic", Colour = _standardColour },
             new GenreColour { Id = _nextId++, Genre = "afrobeat", Colour = _standardColour },
@@ -20,6 +21,21 @@ namespace UDPREST.Managers
             new GenreColour { Id = _nextId++, Genre = "alternative", Colour = _standardColour },
             new GenreColour { Id = _nextId++, Genre = "ambient", Colour = _standardColour },
         };
+
+        private static readonly Dictionary<string, List<GenreColour>> profiles =
+            new Dictionary<String, List<GenreColour>>();
+        
+
+        public string SetActualProfile(string profileName)
+        {
+            actualProfile = profileName;
+            return "Currently in profile: " + profileName;
+        }
+
+        public void AddProfile(string profileName)
+        {
+            if (profiles.)
+        }
 
         public string SetActualGenre(int id)
         {
@@ -43,6 +59,11 @@ namespace UDPREST.Managers
 
         public GenreColour Add(GenreColour newGenreColour)
         {
+            if (!genreColours.ContainsKey.(newGenreColour))
+            {
+                genreColours.Add(genreColours, new List<GenreColour));
+            }
+
             newGenreColour.Id = _nextId++;
             newGenreColour.Colour = _standardColour;
             genreColours.Add(newGenreColour);

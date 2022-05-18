@@ -58,7 +58,7 @@ namespace UDPREST.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
-        public ActionResult<GenreColour> Put([FromQuery] string updatedGenreColour)
+        public ActionResult<GenreColour> Put([FromBody] string updatedGenreColour)
         {
             GenreColour result = _manager.UpdateGenreColour(updatedGenreColour);
             if (result == null) return NotFound("No such item, id:");

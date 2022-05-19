@@ -49,9 +49,9 @@ namespace UDPREST.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("update/genre")]
         [HttpPut]
-        public ActionResult<string> PutActiveGenre([FromQuery] int id)
+        public ActionResult<string> PutActiveGenre([FromQuery] string genre)
         {
-            string currentlySetGenre = _manager.SetActualGenre(id);
+            string currentlySetGenre = _manager.SetActualGenre(genre);
             return Ok(currentlySetGenre);
         }
 

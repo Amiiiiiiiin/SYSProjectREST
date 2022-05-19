@@ -9,7 +9,7 @@ namespace UDPREST.Managers
 {
     public class ColourManager
     {
-        private static int actualGenre;
+        private static string actualGenre;
         private static string actualProfile;
         private static int _nextId = 1;
         private static string _standardColour = "green";
@@ -30,10 +30,10 @@ namespace UDPREST.Managers
             return "Currently in profile: " + profileName;
         }
 
-        public string SetActualGenre(int id)
+        public string SetActualGenre(string genreName)
         {
-            actualGenre = id;
-            return "Currently updating genre number: " + id;
+            actualGenre = genreName;
+            return "Currently updating genre number: " + genreName;
         }
 
         public IEnumerable<string> GetAllProfiles()

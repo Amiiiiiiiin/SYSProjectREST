@@ -15,11 +15,13 @@ namespace UDPREST.Managers
         private static string _standardColour = "green";
         private static readonly List<GenreColour> genreColoursMaster = new List<GenreColour>()
         {
-            new GenreColour { Id = _nextId++, Genre = "acoustic", Colour = _standardColour },
-            new GenreColour { Id = _nextId++, Genre = "afrobeat", Colour = _standardColour },
-            new GenreColour { Id = _nextId++, Genre = "alt-rock", Colour = _standardColour },
-            new GenreColour { Id = _nextId++, Genre = "alternative", Colour = _standardColour },
-            new GenreColour { Id = _nextId++, Genre = "ambient", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "Hip-Hop", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "Pop", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "Rock", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "Jazz", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "Country", Colour = _standardColour },
+            new GenreColour { Id = _nextId++, Genre = "Acoustic", Colour = _standardColour },
+
         };
 
         private static readonly Dictionary<string, List<GenreColour>> profiles = new Dictionary<String, List<GenreColour>>();

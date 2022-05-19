@@ -57,7 +57,7 @@ namespace UDPREST.Managers
 
         public GenreColour UpdateGenreColour(string colour)
         {
-            GenreColour genreColour = profiles[actualProfile].Find(g => g.Id == actualGenre);
+            GenreColour genreColour = profiles[actualProfile].Find(g => g.Genre == actualGenre);
             if (genreColour == null) return null;
             genreColour.Colour = colour;
             return genreColour;
